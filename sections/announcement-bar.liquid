@@ -152,35 +152,37 @@
       white-space: normal;
     }
   }
-  /* Celine Beaumont: product-page tweaks to match the design ---------------
+  /* Celine Beaumont: product-page tweaks --------------------------------
      1. Hide the header utility row (Contact / Track your order) everywhere.
      2. Hide the "Shipping calculated at checkout" caption under the price.
-     3. Keep the main product photo compact so it never dominates the page. */
+     3. Show the product photo at its NATURAL shape, capped in height so it
+        never gets too tall — matching the live (wetransfer) theme, which
+        uses aspect_ratio "adapt" + constrain-to-viewport. This overrides the
+        forced 3:4 / 4:5 box in celine-theme.css that made the image too long. */
   .header__utility-bar {
     display: none !important;
   }
   .product__tax {
     display: none !important;
   }
-  /* Main image: gentler 4:5 portrait instead of the taller 3:4. */
-  .product--stacked .product__media-list .product__media-item:nth-child(1) .media {
-    padding-bottom: 125% !important;
+  .product__media-list .product__media-item .media {
+    padding-bottom: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
   }
-  @media screen and (min-width: 990px) {
-    /* Cap the media column width so the photo stays a sensible size and the
-       info / Add-to-cart column on the right sits higher, like the design. */
-    .product__media-wrapper {
-      max-width: 26rem;
-    }
-  }
-  @media screen and (max-width: 989px) {
-    /* On narrow screens the media stacks full-width — keep it from filling
-       the whole screen. */
-    .product__media-wrapper {
-      max-width: 22rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
+  .product__media-list .product__media-item .media img,
+  .product__media-list .product__media-item .media model-viewer,
+  .product__media-list .product__media-item .media video {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    max-width: 100%;
+    height: auto !important;
+    max-height: 46rem;
+    object-fit: contain !important;
+    margin-left: auto;
+    margin-right: auto;
   }
 {%- endstyle -%}
 
