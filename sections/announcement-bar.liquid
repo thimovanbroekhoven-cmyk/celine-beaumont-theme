@@ -217,6 +217,18 @@
     margin-right: auto;
   }
   /* Product page: remove the empty wishlist button under Add to cart. */
+  /* Mobile slider stretches every slide to the tallest image's height and
+     centers the shorter ones (.product__media-item is flex + align-items:center),
+     which leaves whitespace above and below the frame. Stop the stretch and
+     top-align, so each slide hugs its own image with no vertical gap. */
+  @media screen and (max-width: 749px) {
+    .product__media-list {
+      align-items: flex-start !important;
+    }
+    .product__media-item {
+      align-items: flex-start !important;
+    }
+  }
   .product-form__wishlist {
     display: none !important;
   }
