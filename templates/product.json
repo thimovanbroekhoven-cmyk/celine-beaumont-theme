@@ -23,9 +23,11 @@
           }
         },
         "size_guide": {
-          "type": "popup",
+          "type": "shopify://apps/kiwi-size-chart-recommender/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
           "settings": {
-            "text": "Size guide"
+            "fallbackToBlockPosition": true,
+            "waitForElementSelector": "",
+            "waitForElementDelay": 1
           }
         },
         "bundle_quantity_selector": {
