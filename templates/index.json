@@ -270,7 +270,7 @@
       ]
     },
     "newsletter": {
-      "type": "email-signup-banner",
+      "type": "newsletter",
       "blocks": {
         "heading": {
           "type": "heading",
@@ -282,8 +282,7 @@
         "paragraph": {
           "type": "paragraph",
           "settings": {
-            "text": "<p>Sign up for early access to new collections and 10% off your first order.</p>",
-            "text_style": "body"
+            "text": "<p>Sign up for early access to new collections and 10% off your first order.</p>"
           }
         },
         "email_form": {
@@ -296,15 +295,10 @@
         "email_form"
       ],
       "settings": {
-        "show_background_image": false,
-        "image_overlay_opacity": 0,
-        "image_height": "medium",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
         "color_scheme": "scheme-1",
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "full_width": false,
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "faq": {
