@@ -188,6 +188,7 @@
      the frame hugs the photo instead of leaving whitespace around it. */
   .product__media-item .product-media-container,
   .product__media-item .product-media-container.constrain-height,
+  .product__media-item .product__modal-opener,
   .product__media-item .product__media {
     aspect-ratio: auto !important;
     height: auto !important;
@@ -196,6 +197,10 @@
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     overflow: visible !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
   .product__media-item .product__media img,
   .product__media-item .product__media model-viewer,
