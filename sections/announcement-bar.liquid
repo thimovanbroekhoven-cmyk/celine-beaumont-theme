@@ -275,6 +275,16 @@
     letter-spacing: 0.08em;
     color: #1a7a3c;
   }
+  /* Header: keep it solid (not semi-transparent) when scrolling. The logo is
+     black text on a white background dropped out with mix-blend multiply,
+     which only works on a solid background — so a see-through header made the
+     white logo block show. Force a solid warm-white background + no blur. */
+  .shopify-section-header-sticky .header-wrapper,
+  sticky-header .header-wrapper {
+    background-color: rgb(250, 248, 244) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
 {%- endstyle -%}
 
 {% schema %}
