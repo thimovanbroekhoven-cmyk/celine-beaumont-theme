@@ -152,6 +152,14 @@
       white-space: normal;
     }
   }
+  /* Celine Beaumont: remove the header utility row (Contact / Track your order)
+     and the product "Shipping calculated at checkout" caption, to match the design. */
+  .header__utility-bar {
+    display: none !important;
+  }
+  .product__tax {
+    display: none !important;
+  }
 {%- endstyle -%}
 
 {% schema %}
