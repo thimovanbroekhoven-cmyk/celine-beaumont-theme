@@ -1,29 +1,4 @@
-{% comment %}
-  Renders the "Choose your quantity & save" bundle tier selector.
-
-  This is the one genuinely custom (non-Dawn) piece of the product page. It lets a shopper pick a
-  quantity tier (1 / 2 / 3 / 4+ units) and, for tiers above 1, choose a Color + Size combination
-  per unit so a single "Buy 2" purchase can contain two different variants.
-
-  IMPORTANT — what is and isn't real here:
-  - The tier radios, per-unit variant selects, running totals and the final "add to cart" action
-    are fully functional: selecting a tier shows/hides real <select> elements (never fake divs),
-    and submitting genuinely POSTs one line item per unit to /cart/add.js with the shopper's
-    chosen variant ID(s) — so it truly adds N line items to the Shopify cart.
-  - The discounted per-item/total prices shown here are a client-side preview only. For the
-    customer to actually be charged the discounted amount at checkout, a store admin must create
-    a matching automatic discount (or Shopify Function) in Shopify Admin > Discounts with the
-    same quantity thresholds (2/3/4) and percentages (10%/15%/20%). See DEPLOYMENT.md.
-
-  Accepts:
-  - product: {Object} product object
-  - section_id: {String} id of the parent section, for unique element IDs
-  - product_form_id: {String} id of the main product form (unused for submission — this block
-    intentionally submits independently via /cart/add.js so it can add multiple line items)
-
-  Usage:
-  {% render 'bundle-quantity-selector', product: product, section_id: section.id %}
-{% endcomment %}
+{% comment %} Bundle quantity/discount tier selector. Fully functional add-to-cart via /cart/add.js; discount %% shown is a preview only - configure a matching automatic discount in Admin. See DEPLOYMENT.md. {% endcomment %}
 {%- unless product == blank -%}
   {{ 'component-bundle-quantity-selector.css' | asset_url | stylesheet_tag }}
 
@@ -123,7 +98,7 @@
                 class="form__label visually-hidden"
                 for="BundleUnit-{{ section_id }}-{{ unit }}-Option-{{ forloop.index0 }}"
               >
-                {{ option.name }} — {{ 'celine.product.bundle_unit_label' | t: index: unit }}
+                {{ option.name }} - {{ 'celine.product.bundle_unit_label' | t: index: unit }}
               </label>
               <div class="select">
                 <select
