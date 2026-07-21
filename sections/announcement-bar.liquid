@@ -165,27 +165,27 @@
   .product__tax {
     display: none !important;
   }
-  .product__media-wrapper,
-  .product__media-list,
-  .product__media-list .product__media-item,
-  .product__media-list .product__media-item .product__media,
-  .product__media-list .product__media-item .media {
-    padding-bottom: 0 !important;
+  .product__media-item .product-media-container,
+  .product__media-item .product-media-container.constrain-height,
+  .product__media-item .product__media {
+    aspect-ratio: auto !important;
     height: auto !important;
     min-height: 0 !important;
+    max-height: none !important;
+    padding-bottom: 0 !important;
     overflow: visible !important;
   }
-  .product__media-list .product__media-item .media img,
-  .product__media-list .product__media-item .media model-viewer,
-  .product__media-list .product__media-item .media video {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
+  .product__media-item .product__media img,
+  .product__media-item .product__media model-viewer,
+  .product__media-item .product__media video {
+    position: static !important;
+    inset: auto !important;
     width: auto !important;
     max-width: 100%;
     height: auto !important;
     max-height: 46rem;
     object-fit: contain !important;
+    display: block;
     margin-left: auto;
     margin-right: auto;
   }
