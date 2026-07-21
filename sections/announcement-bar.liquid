@@ -165,13 +165,37 @@
   .product__tax {
     display: none !important;
   }
-  /* Rating stars: same as the homepage reviews — 5 filled gold stars. */
+  /* Rating: same as the homepage reviews — 5 gold stars + "4.9 · 142 reviews". */
   .rating-star {
     --color-rating-star: var(--celine-gold-light) !important;
     --rating: 5 !important;
     --rating-max: 5 !important;
     --rating-decimal: 0 !important;
   }
+  .rating {
+    display: inline-block !important;
+    vertical-align: middle;
+  }
+  .rating-text {
+    display: none !important;
+  }
+  .rating-count {
+    display: inline-block !important;
+    vertical-align: middle;
+    margin: 0 0 0 0.8rem !important;
+  }
+  .rating-count > span {
+    display: none !important;
+  }
+  .rating-count::after {
+    content: "4.9 · 142 reviews";
+    color: rgba(var(--color-foreground), 0.7);
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+  }
+  /* Product photo: kill the aspect-ratio box (Dawn sets its height via
+     .product-media-container .media { padding-top: var(--ratio-percent) }) so
+     the frame hugs the photo instead of leaving whitespace around it. */
   .product__media-item .product-media-container,
   .product__media-item .product-media-container.constrain-height,
   .product__media-item .product__media {
@@ -179,6 +203,7 @@
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
+    padding-top: 0 !important;
     padding-bottom: 0 !important;
     overflow: visible !important;
   }
