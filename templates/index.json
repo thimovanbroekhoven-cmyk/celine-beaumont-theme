@@ -36,9 +36,14 @@
           }
         }
       },
-      "block_order": ["eyebrow", "heading", "subcopy", "buttons"],
+      "block_order": [
+        "eyebrow",
+        "heading",
+        "subcopy",
+        "buttons"
+      ],
       "settings": {
-        "image_overlay_opacity": 25,
+        "image_overlay_opacity": 30,
         "image_height": "large",
         "desktop_content_position": "middle-left",
         "show_text_box": false,
@@ -86,7 +91,12 @@
           }
         }
       },
-      "block_order": ["shipping", "sustainable", "returns", "rating"],
+      "block_order": [
+        "shipping",
+        "sustainable",
+        "returns",
+        "rating"
+      ],
       "settings": {
         "columns_desktop": "4",
         "color_scheme": "scheme-3",
@@ -110,12 +120,37 @@
         "padding_bottom": 64
       },
       "blocks": {
-        "dresses": { "type": "featured_collection", "settings": { "collection": "" } },
-        "jackets": { "type": "featured_collection", "settings": { "collection": "" } },
-        "knitwear": { "type": "featured_collection", "settings": { "collection": "" } },
-        "trousers": { "type": "featured_collection", "settings": { "collection": "" } }
+        "dresses": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "jackets": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "knitwear": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "trousers": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        }
       },
-      "block_order": ["dresses", "jackets", "knitwear", "trousers"]
+      "block_order": [
+        "dresses",
+        "jackets",
+        "knitwear",
+        "trousers"
+      ]
     },
     "promise": {
       "type": "image-with-text",
@@ -151,7 +186,12 @@
           }
         }
       },
-      "block_order": ["caption", "heading", "text", "button"],
+      "block_order": [
+        "caption",
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
         "height": "large",
         "desktop_image_width": "half",
@@ -204,11 +244,30 @@
         "padding_bottom": 64
       },
       "blocks": {
-        "t1": { "type": "testimonial", "settings": { "rating": 5 } },
-        "t2": { "type": "testimonial", "settings": { "rating": 5 } },
-        "t3": { "type": "testimonial", "settings": { "rating": 5 } }
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5
+          }
+        },
+        "t3": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3"]
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ]
     },
     "newsletter": {
       "type": "email-signup-banner",
@@ -231,7 +290,11 @@
           "type": "email_form"
         }
       },
-      "block_order": ["heading", "paragraph", "email_form"],
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email_form"
+      ],
       "settings": {
         "show_background_image": false,
         "image_overlay_opacity": 0,
@@ -264,26 +327,52 @@
       "blocks": {
         "q1": {
           "type": "collapsible_row",
-          "settings": { "heading": "Do you offer free shipping?", "icon": "none", "row_content": "<p>Yes — we offer complimentary shipping on all Canadian orders, with no minimum spend. Orders ship within 1–2 business days.</p>" }
+          "settings": {
+            "heading": "Do you offer free shipping?",
+            "icon": "none",
+            "row_content": "<p>Yes — we offer complimentary shipping on all Canadian orders, with no minimum spend. Orders ship within 1–2 business days.</p>"
+          }
         },
         "q2": {
           "type": "collapsible_row",
-          "settings": { "heading": "What is your return policy?", "icon": "none", "row_content": "<p>We accept easy returns within 30 days on most items. A few final-sale pieces are clearly marked before purchase.</p>" }
+          "settings": {
+            "heading": "What is your return policy?",
+            "icon": "none",
+            "row_content": "<p>We accept easy returns within 30 days on most items. A few final-sale pieces are clearly marked before purchase.</p>"
+          }
         },
         "q3": {
           "type": "collapsible_row",
-          "settings": { "heading": "How can I track my order?", "icon": "none", "row_content": "<p>As soon as your order ships, you'll receive an email with a tracking link so you can follow it every step of the way.</p>" }
+          "settings": {
+            "heading": "How can I track my order?",
+            "icon": "none",
+            "row_content": "<p>As soon as your order ships, you'll receive an email with a tracking link so you can follow it every step of the way.</p>"
+          }
         },
         "q4": {
           "type": "collapsible_row",
-          "settings": { "heading": "What payment methods do you accept?", "icon": "none", "row_content": "<p>We accept all major credit cards, Apple Pay, Google Pay, PayPal, Shop Pay and more — all processed securely at checkout.</p>" }
+          "settings": {
+            "heading": "What payment methods do you accept?",
+            "icon": "none",
+            "row_content": "<p>We accept all major credit cards, Apple Pay, Google Pay, PayPal, Shop Pay and more — all processed securely at checkout.</p>"
+          }
         },
         "q5": {
           "type": "collapsible_row",
-          "settings": { "heading": "How do I find my size?", "icon": "none", "row_content": "<p>Every product page includes a size guide with detailed measurements. If you're between sizes or unsure, reach out to info@celinebeaumont.com and we're happy to help.</p>" }
+          "settings": {
+            "heading": "How do I find my size?",
+            "icon": "none",
+            "row_content": "<p>Every product page includes a size guide with detailed measurements. If you're between sizes or unsure, reach out to info@celinebeaumont.com and we're happy to help.</p>"
+          }
         }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5"]
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ]
     }
   },
   "order": [

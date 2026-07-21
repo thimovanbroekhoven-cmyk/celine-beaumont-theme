@@ -18,9 +18,12 @@
           }
         }
       },
-      "block_order": ["eyebrow", "heading"],
+      "block_order": [
+        "eyebrow",
+        "heading"
+      ],
       "settings": {
-        "image_overlay_opacity": 55,
+        "image_overlay_opacity": 60,
         "image_height": "large",
         "desktop_content_position": "middle-center",
         "show_text_box": false,
@@ -52,7 +55,9 @@
           }
         }
       },
-      "block_order": ["text"],
+      "block_order": [
+        "text"
+      ],
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "left",
@@ -72,18 +77,31 @@
       "blocks": {
         "clients": {
           "type": "stat",
-          "settings": { "number": "12k+", "label": "Loyal clients" }
+          "settings": {
+            "number": "12k+",
+            "label": "Loyal clients"
+          }
         },
         "designed": {
           "type": "stat",
-          "settings": { "number": "100%", "label": "Designed in Toronto" }
+          "settings": {
+            "number": "100%",
+            "label": "Designed in Toronto"
+          }
         },
         "rating": {
           "type": "stat",
-          "settings": { "number": "4.9★", "label": "Average rating" }
+          "settings": {
+            "number": "4.9★",
+            "label": "Average rating"
+          }
         }
       },
-      "block_order": ["clients", "designed", "rating"]
+      "block_order": [
+        "clients",
+        "designed",
+        "rating"
+      ]
     },
     "closing-cta": {
       "type": "rich-text",
@@ -110,7 +128,11 @@
           }
         }
       },
-      "block_order": ["heading", "text", "button"],
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
