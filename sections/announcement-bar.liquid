@@ -165,33 +165,23 @@
   .product__tax {
     display: none !important;
   }
-  /* Rating: same as the homepage reviews — 5 gold stars + "4.9 · 142 reviews". */
-  .rating-star {
-    --color-rating-star: var(--celine-gold-light) !important;
-    --rating: 4.9 !important;
-    --rating-max: 5 !important;
-    --rating-decimal: 0 !important;
-  }
-  .rating {
-    display: inline-block !important;
-    vertical-align: middle;
-  }
-  .rating-text {
-    display: none !important;
-  }
+  /* Rating: Dawn's own rating block only renders when a product has a reviews
+     metafield, so it's missing on products without reviews. Hide it and inject a
+     fixed gold "4.9 / 5 Rated" line above every product title, so the rating
+     shows consistently on every product (like the homepage). */
+  .rating,
+  .rating-text,
   .rating-count {
-    display: inline-block !important;
-    vertical-align: middle;
-    margin: 0 0 0 0.8rem !important;
-  }
-  .rating-count > span {
     display: none !important;
   }
-  .rating-count::after {
-    content: "4.9 / 5 Rated (142 reviews)";
-    color: rgba(var(--color-foreground), 0.7);
-    font-size: 1.3rem;
-    letter-spacing: 0.02em;
+  .product__title::before {
+    content: "★★★★★  4.9 / 5 Rated (142 reviews)";
+    display: block;
+    color: var(--celine-gold-text);
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    margin-bottom: 1.2rem;
   }
   /* Product photo: kill the aspect-ratio box (Dawn sets its height via
      .product-media-container .media { padding-top: var(--ratio-percent) }) so
