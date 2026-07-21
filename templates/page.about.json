@@ -1,0 +1,131 @@
+{
+  "sections": {
+    "hero": {
+      "type": "image-banner",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "Our story",
+            "text_style": "uppercase"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made in Toronto, with intention",
+            "heading_size": "hxl"
+          }
+        }
+      },
+      "block_order": ["eyebrow", "heading"],
+      "settings": {
+        "image_overlay_opacity": 55,
+        "image_height": "large",
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "image_behavior": "none",
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "quote": {
+      "type": "quote",
+      "settings": {
+        "quote": "<p>Every woman deserves to feel beautiful — not just on special occasions, but every single day.</p>",
+        "attribution": "Celine Beaumont, Founder",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 48
+      }
+    },
+    "founder-story": {
+      "type": "rich-text",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Celine Beaumont began in a small studio in Toronto's Fashion District, with a simple idea: that everyday clothing should feel as considered as anything reserved for special occasions. Two decades later, that idea hasn't changed.</p><p>Every piece we make starts with a fabric we can stand behind — natural fibres, responsibly sourced, cut and sewn by a small team of pattern-makers and seamstresses we know by name. We keep our runs small on purpose: more care in every stitch, less waste in every collection, and clothing built to be worn for years, not seasons.</p><p>From our first dress to our latest collection, we've stayed close to home — designing, cutting and finishing everything right here in Toronto, for women across Canada who want their wardrobe to feel like them.</p>"
+          }
+        }
+      },
+      "block_order": ["text"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "padding_top": 24,
+        "padding_bottom": 56
+      }
+    },
+    "stats": {
+      "type": "stats",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 56,
+        "padding_bottom": 56
+      },
+      "blocks": {
+        "clients": {
+          "type": "stat",
+          "settings": { "number": "12k+", "label": "Loyal clients" }
+        },
+        "designed": {
+          "type": "stat",
+          "settings": { "number": "100%", "label": "Designed in Toronto" }
+        },
+        "rating": {
+          "type": "stat",
+          "settings": { "number": "4.9★", "label": "Average rating" }
+        }
+      },
+      "block_order": ["clients", "designed", "rating"]
+    },
+    "closing-cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Discover the collection",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Timeless pieces, delivered to your door anywhere in Canada.</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop the collection",
+            "button_link": "shopify://collections/all",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["heading", "text", "button"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "padding_top": 64,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "quote",
+    "founder-story",
+    "stats",
+    "closing-cta"
+  ]
+}

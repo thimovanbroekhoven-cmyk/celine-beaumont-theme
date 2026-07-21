@@ -1,0 +1,594 @@
+/* ==========================================================================
+   Celine Beaumont — brand reskin of Dawn
+   Loaded after base.css; relies on Dawn's CSS custom properties (--color-*,
+   --font-*) wherever possible so the theme editor's color scheme / typography
+   controls keep working. Bespoke component styles (icon columns, bundle
+   selector, cart progress bar, etc.) live here since Dawn has no equivalent.
+   ========================================================================== */
+
+:root {
+  /* Raw brand values used where Dawn's color-scheme system doesn't reach
+     (e.g. one-off borders, icon colors, decorative accents). Prefer the
+     rgb(var(--color-*)) scheme variables for anything text/background. */
+  --celine-ink: #1c1a17;
+  --celine-body: #57524b;
+  --celine-muted: #8a837a;
+  --celine-muted-text: #726b62; /* AA-safe variant of muted for small text */
+  --celine-bg: #faf8f4;
+  --celine-cream: #f1ebe2;
+  --celine-paper: #f4efe8;
+  --celine-gold: #b4894e; /* decorative use only (icons, large text, dots) */
+  --celine-gold-text: #8a6529; /* AA-safe gold for links/small text */
+  --celine-gold-light: #c9a86a; /* star ratings, progress dots (decorative) */
+  --celine-hairline: #ece5da;
+  --celine-hairline-strong: #ddd2c2;
+  --celine-form-border: #d8cebf;
+  --celine-dark: #1c1a17;
+  --celine-dark-text: #f4efe8;
+  --celine-dark-text-muted: #cbc3b8;
+}
+
+/* -----------------------------------------------------------------------
+   Base typography — 17px body / 1.65 line-height for an older audience.
+   Dawn sizes body text in rem off a 62.5% root, which we leave alone so
+   spacing/icons/buttons keep their proportions; only the readable body copy
+   size changes here.
+   ----------------------------------------------------------------------- */
+body {
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+}
+
+@media screen and (min-width: 750px) {
+  body {
+    font-size: 17px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6,
+.h0, .h1, .h2, .h3, .h4, .h5 {
+  font-family: var(--font-heading-family);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Links: gold is only safe as a functional link color on light backgrounds
+   when it's the deeper "gold-text" tone AND underlined — see brief's
+   contrast fix. Dawn already drives most links off --color-link (mapped to
+   each color scheme's secondary_button_label, which we've set to
+   celine-gold-text on light schemes and celine-gold-light on the dark
+   scheme, so this mostly "just works"). We add underlines belt-and-braces. */
+.rte a:not(.button),
+.celine-quote__attribution,
+a.link:not(.button) {
+  text-underline-offset: 0.15em;
+}
+
+/* -----------------------------------------------------------------------
+   Buttons — ink fill, uppercase, wide letter-spacing, no radius.
+   ----------------------------------------------------------------------- */
+.button,
+.shopify-payment-button__button--unbranded {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 1.2rem;
+  padding-top: 1.7rem;
+  padding-bottom: 1.7rem;
+  border-radius: 0 !important;
+}
+
+/* -----------------------------------------------------------------------
+   Header utility bar (Contact / Track your order)
+   ----------------------------------------------------------------------- */
+.header__utility-bar {
+  display: none;
+  justify-content: flex-start;
+  gap: 2.4rem;
+  padding: 0.8rem 3rem 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media screen and (min-width: 990px) {
+  .header__utility-bar {
+    display: flex;
+  }
+}
+
+.header__utility-link {
+  color: rgba(var(--color-foreground), 0.75);
+  text-decoration: none;
+}
+
+.header__utility-link:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+}
+
+/* Sticky header backdrop-blur */
+.shopify-section-header-sticky .header-wrapper,
+sticky-header .header-wrapper {
+  backdrop-filter: blur(10px);
+  background-color: rgba(250, 248, 244, 0.92);
+}
+
+.color-scheme-3 .header-wrapper,
+.header-wrapper.color-scheme-3 {
+  background-color: rgba(28, 26, 23, 0.92);
+}
+
+/* Announcement bar currency label + nav "Sale" gold accent */
+.announcement-bar__currency {
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.header__inline-menu .list-menu__item--link[href*='/sale'],
+.header__inline-menu .list-menu__item--link[href*='/collections/sale'] {
+  color: var(--celine-gold-text);
+}
+
+/* -----------------------------------------------------------------------
+   Hero (image-banner): directional gradient overlay, dark left -> transparent
+   right, layered on top of Dawn's own flat overlay opacity setting.
+   ----------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .banner__media {
+    position: relative;
+  }
+}
+
+.banner__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(28, 26, 23, 0.55) 0%, rgba(28, 26, 23, 0.15) 55%, transparent 85%);
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------------------
+   Icon columns (USP strip / product details band)
+   ----------------------------------------------------------------------- */
+.icon-columns__header {
+  text-align: center;
+  margin-bottom: 3.2rem;
+}
+
+.icon-columns__heading {
+  margin: 0.4rem 0 0;
+}
+
+.icon-columns__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.2rem 2rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 750px) {
+  .icon-columns__grid--3-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .icon-columns__grid--4-col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.icon-columns__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-bottom: 1.2rem;
+  color: var(--celine-gold);
+}
+
+.icon-columns__icon svg {
+  width: 3.2rem;
+  height: 3.2rem;
+  stroke: currentColor;
+}
+
+.icon-columns__item-heading {
+  font-size: 1.6rem;
+  margin: 0 0 0.4rem;
+}
+
+.icon-columns__item-text {
+  margin: 0;
+  font-size: 1.4rem;
+  opacity: 0.8;
+}
+
+/* -----------------------------------------------------------------------
+   Category grid (collection-list) card count line
+   ----------------------------------------------------------------------- */
+.card__count {
+  margin: 0.2rem 0 0;
+  color: var(--celine-muted-text);
+}
+
+/* -----------------------------------------------------------------------
+   Product card: material subtext line (New Arrivals / grids)
+   ----------------------------------------------------------------------- */
+.card-information__material {
+  color: var(--celine-muted-text);
+  font-size: 1.3rem;
+  margin: 0.1rem 0 0.3rem;
+}
+
+/* -----------------------------------------------------------------------
+   Breadcrumb
+   ----------------------------------------------------------------------- */
+.celine-breadcrumb {
+  margin-bottom: 1.2rem;
+}
+
+.celine-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--celine-muted-text);
+}
+
+.celine-breadcrumb__item + .celine-breadcrumb__item::before {
+  content: '/';
+  margin-right: 0.4rem;
+  opacity: 0.6;
+}
+
+.celine-breadcrumb__item a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* -----------------------------------------------------------------------
+   Testimonials / product reviews
+   ----------------------------------------------------------------------- */
+.testimonials__header {
+  text-align: center;
+  margin-bottom: 3.2rem;
+}
+
+.testimonials__overall-rating {
+  margin-bottom: 1.2rem;
+}
+
+.testimonials .rating-star,
+.product-reviews .rating-star {
+  --color-rating-star: var(--celine-gold-light);
+}
+
+.testimonials__heading {
+  margin: 0.4rem 0 0;
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .testimonials__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonials__item {
+  padding: 2.8rem 2.4rem;
+  background: rgb(var(--color-background));
+  text-align: center;
+}
+
+.testimonials__quote {
+  margin: 1.2rem 0;
+  font-family: var(--font-heading-family);
+  font-style: italic;
+  font-size: 1.9rem;
+  line-height: 1.5;
+}
+
+.testimonials__name {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 1.2rem;
+  color: var(--celine-muted-text);
+}
+
+/* -----------------------------------------------------------------------
+   Pull quote (About page)
+   ----------------------------------------------------------------------- */
+.celine-quote {
+  text-align: center;
+}
+
+.celine-quote__text {
+  max-width: 72rem;
+  margin: 0 auto;
+  font-family: var(--font-heading-family);
+  font-style: italic;
+  font-size: 2.8rem;
+  line-height: 1.45;
+}
+
+.celine-quote__attribution {
+  display: block;
+  margin-top: 2rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 1.3rem;
+  color: var(--celine-gold-text);
+}
+
+/* -----------------------------------------------------------------------
+   Stats band (About page)
+   ----------------------------------------------------------------------- */
+.celine-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.celine-stats__number {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: 3.6rem;
+  color: var(--celine-gold-text);
+}
+
+.celine-stats__label {
+  margin: 0.4rem 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.3rem;
+}
+
+/* -----------------------------------------------------------------------
+   FAQ (collapsible-content) footer line + Tenor Sans question text
+   ----------------------------------------------------------------------- */
+.collapsible-content__footer-text {
+  max-width: 60rem;
+  margin: 3.2rem auto 0;
+  text-align: center;
+}
+
+.collapsible-content__footer-text a {
+  color: var(--celine-gold-text);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.accordion__title {
+  font-family: var(--font-heading-family);
+}
+
+.accordion summary {
+  min-height: 4.4rem;
+}
+
+/* -----------------------------------------------------------------------
+   Collection filters — pill-style tags with hairline borders
+   ----------------------------------------------------------------------- */
+.facets .facet-checkbox {
+  border: 1px solid var(--celine-hairline-strong);
+  border-radius: 999px;
+  padding: 0.8rem 1.6rem;
+  min-height: 4rem;
+}
+
+.facets summary.facet-checkbox,
+.facets .disclosure-has-popup > summary {
+  border-radius: 999px;
+  border: 1px solid var(--celine-hairline-strong);
+}
+
+/* -----------------------------------------------------------------------
+   Product media gallery — force a 1 / 2-up / 1 editorial rhythm on the
+   "stacked" gallery layout regardless of each image's native aspect ratio.
+   ----------------------------------------------------------------------- */
+@media screen and (min-width: 750px) {
+  .product--stacked .product__media-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--media-padding, 1rem);
+  }
+
+  .product--stacked .product__media-list .product__media-item:nth-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  .product--stacked .product__media-list .product__media-item:nth-child(1) .media {
+    padding-bottom: 133.33% !important; /* 3:4 */
+  }
+
+  .product--stacked .product__media-list .product__media-item:nth-child(4) {
+    grid-column: 1 / -1;
+  }
+
+  .product--stacked .product__media-list .product__media-item:nth-child(4) .media {
+    padding-bottom: 125% !important; /* 4:5 */
+  }
+
+  .product--stacked .product__media-list .product__media-item .media img,
+  .product--stacked .product__media-list .product__media-item .media model-viewer,
+  .product--stacked .product__media-list .product__media-item .media video {
+    object-fit: cover;
+  }
+}
+
+/* -----------------------------------------------------------------------
+   Product details band uses icon-columns on scheme-4 (paper) — align the
+   icon color to ink instead of gold so it reads as calm/neutral on paper.
+   ----------------------------------------------------------------------- */
+.color-scheme-4 .icon-columns__icon {
+  color: var(--celine-ink);
+}
+
+/* -----------------------------------------------------------------------
+   Cart drawer — tiered discount progress bar
+   ----------------------------------------------------------------------- */
+.cart-drawer__progress {
+  padding: 1.6rem 2rem 0;
+}
+
+.cart-drawer__progress-message {
+  margin: 0 0 1.2rem;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.cart-drawer__progress-track {
+  position: relative;
+  height: 0.4rem;
+  background: var(--celine-hairline);
+  margin: 0 1rem;
+}
+
+.cart-drawer__progress-fill {
+  position: absolute;
+  inset: 0;
+  width: var(--progress-percent, 0%);
+  background: var(--celine-gold);
+  transition: width 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-drawer__progress-fill {
+    transition: none;
+  }
+}
+
+.cart-drawer__progress-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: rgb(var(--color-background));
+  border: 2px solid var(--celine-hairline-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--celine-ink);
+}
+
+.cart-drawer__progress-dot.is-complete {
+  border-color: var(--celine-gold);
+  background: var(--celine-gold);
+  color: #fff;
+}
+
+.cart-drawer__progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.6rem 1rem 0;
+  font-size: 1.1rem;
+  color: var(--celine-muted-text);
+}
+
+.cart-drawer__free-shipping {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.2rem 2rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--celine-cream);
+  font-size: 1.3rem;
+}
+
+.cart-drawer__free-shipping .svg-wrapper {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--celine-gold-text);
+  flex-shrink: 0;
+}
+
+.cart-drawer__continue-link {
+  display: block;
+  text-align: center;
+  margin-top: 1.2rem;
+}
+
+/* -----------------------------------------------------------------------
+   Trust strip (product page)
+   ----------------------------------------------------------------------- */
+.trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin: 2.4rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--celine-hairline);
+  border-bottom: 1px solid var(--celine-hairline);
+  text-align: center;
+}
+
+.trust-strip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+}
+
+.trust-strip__icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--celine-gold);
+}
+
+/* -----------------------------------------------------------------------
+   Wishlist button next to Add to cart
+   ----------------------------------------------------------------------- */
+.product-form__buttons {
+  flex-wrap: wrap;
+}
+
+.product-form__wishlist {
+  flex: 0 0 auto;
+  width: 5.6rem;
+  min-width: 5.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--celine-ink);
+  color: var(--celine-ink);
+}
+
+.product-form__wishlist .svg-wrapper {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* -----------------------------------------------------------------------
+   Touch targets — quantity steppers, accordion rows, swatches (already
+   44px by default in component-swatch.css; steppers bumped here).
+   ----------------------------------------------------------------------- */
+.quantity__button {
+  min-width: 4rem;
+  min-height: 4rem;
+}

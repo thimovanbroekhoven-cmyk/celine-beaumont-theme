@@ -1,0 +1,199 @@
+{% comment %}
+  Celine Beaumont custom section (Dawn has no equivalent): a row of icon + heading + text
+  columns. Used for the homepage USP strip (dark scheme) and the product page "details band"
+  (light/cream scheme) — the same section, made flexible via the standard color_scheme setting
+  so either variant is just a theme-editor choice, not a code fork.
+
+  Icons reuse Dawn's existing stroke-based icon set (assets/icon-*.svg, currentColor) via the
+  shared 'icon-accordion' snippet, rather than inventing a new icon system.
+{% endcomment %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="icon-columns color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if section.settings.caption != blank or section.settings.heading != blank -%}
+      <div class="icon-columns__header">
+        {%- if section.settings.caption != blank -%}
+          <p class="caption-with-letter-spacing">{{ section.settings.caption | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="icon-columns__heading inline-richtext">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="icon-columns__grid icon-columns__grid--{{ section.settings.columns_desktop }}-col">
+      {%- for block in section.blocks -%}
+        <div class="icon-columns__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != 'none' -%}
+            <div class="icon-columns__icon">
+              {% render 'icon-accordion', icon: block.settings.icon %}
+            </div>
+          {%- endif -%}
+          {%- if block.settings.heading != blank -%}
+            <h3 class="icon-columns__item-heading">{{ block.settings.heading | escape }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="icon-columns__item-text">{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:celine.schema.icon_columns.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "t:celine.schema.icon_columns.caption.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:celine.schema.icon_columns.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "t:celine.schema.icon_columns.columns_desktop.label",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_column",
+      "name": "t:celine.schema.icon_columns.block.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.label",
+          "default": "truck",
+          "options": [
+            { "value": "none", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__1.label" },
+            { "value": "apple", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__2.label" },
+            { "value": "banana", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__3.label" },
+            { "value": "bottle", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__4.label" },
+            { "value": "box", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__5.label" },
+            { "value": "carrot", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__6.label" },
+            { "value": "chat_bubble", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__7.label" },
+            { "value": "check_mark", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__8.label" },
+            { "value": "clipboard", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__9.label" },
+            { "value": "dairy", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__10.label" },
+            { "value": "dairy_free", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__11.label" },
+            { "value": "dryer", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__12.label" },
+            { "value": "eye", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__13.label" },
+            { "value": "fire", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__14.label" },
+            { "value": "gluten_free", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__15.label" },
+            { "value": "heart", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__16.label" },
+            { "value": "iron", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__17.label" },
+            { "value": "leaf", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__18.label" },
+            { "value": "leather", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__19.label" },
+            { "value": "lightning_bolt", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__20.label" },
+            { "value": "lipstick", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__21.label" },
+            { "value": "lock", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__22.label" },
+            { "value": "map_pin", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__23.label" },
+            { "value": "nut_free", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__24.label" },
+            { "value": "pants", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__25.label" },
+            { "value": "paw_print", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__26.label" },
+            { "value": "pepper", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__27.label" },
+            { "value": "perfume", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__28.label" },
+            { "value": "plane", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__29.label" },
+            { "value": "plant", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__30.label" },
+            { "value": "price_tag", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__31.label" },
+            { "value": "question_mark", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__32.label" },
+            { "value": "recycle", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__33.label" },
+            { "value": "return", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__34.label" },
+            { "value": "ruler", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__35.label" },
+            { "value": "serving_dish", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__36.label" },
+            { "value": "shirt", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__37.label" },
+            { "value": "shoe", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__38.label" },
+            { "value": "silhouette", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__39.label" },
+            { "value": "snowflake", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__40.label" },
+            { "value": "star", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__41.label" },
+            { "value": "stopwatch", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__42.label" },
+            { "value": "truck", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__43.label" },
+            { "value": "washing", "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.icon.options__44.label" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:celine.schema.icon_columns.block.heading.label",
+          "default": "t:celine.schema.icon_columns.block.heading.default"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:celine.schema.icon_columns.block.text.label",
+          "default": "t:celine.schema.icon_columns.block.text.default"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:celine.schema.icon_columns.name",
+      "blocks": [
+        { "type": "icon_column", "settings": { "icon": "truck" } },
+        { "type": "icon_column", "settings": { "icon": "leaf" } },
+        { "type": "icon_column", "settings": { "icon": "return" } },
+        { "type": "icon_column", "settings": { "icon": "star" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

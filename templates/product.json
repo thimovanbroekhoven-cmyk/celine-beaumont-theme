@@ -1,0 +1,200 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "rating": {
+          "type": "rating"
+        },
+        "price": {
+          "type": "price"
+        },
+        "description": {
+          "type": "description"
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "size_guide": {
+          "type": "popup",
+          "settings": {
+            "text": "Size guide"
+          }
+        },
+        "bundle_quantity_selector": {
+          "type": "bundle_quantity_selector"
+        },
+        "quantity_selector": {
+          "type": "quantity_selector"
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "trust_strip": {
+          "type": "trust_strip"
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "price",
+        "description",
+        "variant_picker",
+        "size_guide",
+        "bundle_quantity_selector",
+        "quantity_selector",
+        "buy_buttons",
+        "trust_strip",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_position": "left",
+        "gallery_layout": "stacked",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "image_zoom": "lightbox",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "details-band": {
+      "type": "icon-columns",
+      "blocks": {
+        "fit": {
+          "type": "icon_column",
+          "settings": {
+            "icon": "silhouette",
+            "heading": "A flattering fit",
+            "text": "Cut to move with you"
+          }
+        },
+        "fabric": {
+          "type": "icon_column",
+          "settings": {
+            "icon": "leaf",
+            "heading": "Sustainable fabric",
+            "text": "Responsibly sourced materials"
+          }
+        },
+        "made_in": {
+          "type": "icon_column",
+          "settings": {
+            "icon": "map_pin",
+            "heading": "Made in Toronto",
+            "text": "Designed and finished locally"
+          }
+        }
+      },
+      "block_order": ["fit", "fabric", "made_in"],
+      "settings": {
+        "columns_desktop": "3",
+        "color_scheme": "scheme-4",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 56,
+        "padding_bottom": 56
+      },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "rating": 5 } },
+        "r2": { "type": "review", "settings": { "rating": 5 } },
+        "r3": { "type": "review", "settings": { "rating": 4 } }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h1",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "columns_mobile": "2",
+        "padding_top": 56,
+        "padding_bottom": 36
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "Need a hand?",
+        "heading": "Frequently asked questions",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "footer_text": "<p>Still have a question? <a href=\"/pages/contact\">Contact us</a> · info@celinebeaumont.com</p>",
+        "padding_top": 56,
+        "padding_bottom": 64
+      },
+      "blocks": {
+        "q1": {
+          "type": "collapsible_row",
+          "settings": { "heading": "Do you offer free shipping?", "icon": "none", "row_content": "<p>Yes — we offer complimentary shipping on all Canadian orders, with no minimum spend. Orders ship within 1–2 business days.</p>" }
+        },
+        "q2": {
+          "type": "collapsible_row",
+          "settings": { "heading": "What is your return policy?", "icon": "none", "row_content": "<p>We accept easy returns within 30 days on most items. A few final-sale pieces are clearly marked before purchase.</p>" }
+        },
+        "q3": {
+          "type": "collapsible_row",
+          "settings": { "heading": "How can I track my order?", "icon": "none", "row_content": "<p>As soon as your order ships, you'll receive an email with a tracking link so you can follow it every step of the way.</p>" }
+        },
+        "q4": {
+          "type": "collapsible_row",
+          "settings": { "heading": "What payment methods do you accept?", "icon": "none", "row_content": "<p>We accept all major credit cards, Apple Pay, Google Pay, PayPal, Shop Pay and more — all processed securely at checkout.</p>" }
+        },
+        "q5": {
+          "type": "collapsible_row",
+          "settings": { "heading": "How do I find my size?", "icon": "none", "row_content": "<p>Every product page includes a size guide with detailed measurements. If you're between sizes or unsure, reach out to info@celinebeaumont.com and we're happy to help.</p>" }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5"]
+    }
+  },
+  "order": [
+    "main",
+    "details-band",
+    "reviews",
+    "related-products",
+    "faq"
+  ]
+}

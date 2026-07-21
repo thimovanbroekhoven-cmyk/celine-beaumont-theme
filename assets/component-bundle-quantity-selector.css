@@ -1,0 +1,145 @@
+/* Celine Beaumont: "Choose your quantity & save" bundle tier selector (custom, non-Dawn). */
+
+.bundle-quantity-selector {
+  display: block;
+  margin: 2.4rem 0;
+  padding: 2rem;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+}
+
+.bundle-quantity-selector__heading {
+  margin: 0 0 1.6rem;
+}
+
+.bundle-quantity-selector__tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 0 1.6rem;
+  padding: 0;
+  border: none;
+}
+
+.bundle-quantity-selector__tier {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid var(--celine-color-hairline-strong, #ddd2c2);
+  cursor: pointer;
+  min-height: 4.4rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.bundle-quantity-selector__tier:hover {
+  border-color: rgb(var(--color-foreground));
+}
+
+/* Real radio input, visually styled as the dot indicator — never a div+onclick. */
+.bundle-quantity-selector__radio {
+  position: absolute;
+  opacity: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin: 0;
+}
+
+.bundle-quantity-selector__dot {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--celine-color-hairline-strong, #ddd2c2);
+  position: relative;
+}
+
+.bundle-quantity-selector__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0.4rem;
+  border-radius: 50%;
+  background: rgb(var(--color-foreground));
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+.bundle-quantity-selector__radio:checked + .bundle-quantity-selector__dot::after {
+  transform: scale(1);
+}
+
+/* Selection state is never color-only: the whole row gets a stronger border + background tint. */
+.bundle-quantity-selector__radio:checked ~ .bundle-quantity-selector__tier-body,
+.bundle-quantity-selector__tier:has(.bundle-quantity-selector__radio:checked) {
+  border-color: rgb(var(--color-foreground));
+}
+
+.bundle-quantity-selector__tier:has(.bundle-quantity-selector__radio:checked) {
+  background: rgba(var(--color-foreground), 0.04);
+}
+
+.bundle-quantity-selector__radio:focus-visible + .bundle-quantity-selector__dot {
+  outline: 2px solid rgb(var(--color-foreground));
+  outline-offset: 2px;
+}
+
+.bundle-quantity-selector__tier-body {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+}
+
+.bundle-quantity-selector__tier-label {
+  font-family: var(--font-heading-family);
+  font-size: 1.6rem;
+}
+
+.bundle-quantity-selector__tier-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.bundle-quantity-selector__price-was {
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.bundle-quantity-selector__unit {
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--celine-color-hairline, #ece5da);
+}
+
+.bundle-quantity-selector__unit-label {
+  margin: 0 0 0.8rem;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.bundle-quantity-selector__unit-selects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.bundle-quantity-selector__field .select {
+  min-height: 4.4rem;
+}
+
+.bundle-quantity-selector__actions {
+  margin-top: 1.6rem;
+}
+
+.bundle-quantity-selector__add {
+  min-height: 4.8rem;
+}
+
+.bundle-quantity-selector__status {
+  margin-top: 0.8rem;
+  text-align: center;
+}

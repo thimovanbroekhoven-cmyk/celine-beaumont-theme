@@ -1,0 +1,32 @@
+{% comment %}
+  Renders a simple "Home / Category / Current" breadcrumb trail. Dawn ships no breadcrumb
+  component, so this is a small addition following Dawn's conventions.
+
+  Accepts:
+  - parent_title: {String} optional intermediate crumb label (e.g. the product's collection)
+  - parent_url: {String} optional intermediate crumb URL
+  - current_title: {String} required — the current page title (rendered as plain text, not a link)
+
+  Usage:
+  {% render 'breadcrumb', current_title: collection.title %}
+  {% render 'breadcrumb', parent_title: product.collections.first.title, parent_url: product.collections.first.url, current_title: product.title %}
+{% endcomment %}
+<nav class="celine-breadcrumb" aria-label="{{ 'celine.breadcrumb.label' | t }}">
+  <ol class="celine-breadcrumb__list list-unstyled">
+    <li class="celine-breadcrumb__item">
+      <a href="{{ routes.root_url }}">{{ 'celine.breadcrumb.home' | t }}</a>
+    </li>
+    {%- if parent_title != blank -%}
+      <li class="celine-breadcrumb__item">
+        {%- if parent_url != blank -%}
+          <a href="{{ parent_url }}">{{ parent_title | escape }}</a>
+        {%- else -%}
+          <span>{{ parent_title | escape }}</span>
+        {%- endif -%}
+      </li>
+    {%- endif -%}
+    <li class="celine-breadcrumb__item" aria-current="page">
+      <span>{{ current_title | escape }}</span>
+    </li>
+  </ol>
+</nav>

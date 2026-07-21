@@ -1,0 +1,22 @@
+{% comment %}
+  Renders a reusable 3-column trust strip (free shipping / free returns / secure checkout).
+  Used on the product page; built as a standalone snippet so it can be reused elsewhere
+  (e.g. the cart drawer) if the merchant wants it there later.
+
+  Usage:
+  {% render 'trust-strip' %}
+{% endcomment %}
+<div class="trust-strip">
+  <div class="trust-strip__item">
+    <span class="svg-wrapper trust-strip__icon" aria-hidden="true">{{ 'icon-truck.svg' | inline_asset_content }}</span>
+    <span class="trust-strip__label">{{ 'celine.trust_strip.free_shipping' | t }}</span>
+  </div>
+  <div class="trust-strip__item">
+    <span class="svg-wrapper trust-strip__icon" aria-hidden="true">{{ 'icon-return.svg' | inline_asset_content }}</span>
+    <span class="trust-strip__label">{{ 'celine.trust_strip.free_returns' | t }}</span>
+  </div>
+  <div class="trust-strip__item">
+    <span class="svg-wrapper trust-strip__icon" aria-hidden="true">{{ 'icon-lock.svg' | inline_asset_content }}</span>
+    <span class="trust-strip__label">{{ 'celine.trust_strip.secure_checkout' | t }}</span>
+  </div>
+</div>

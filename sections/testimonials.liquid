@@ -1,0 +1,164 @@
+{% comment %}
+  Celine Beaumont custom section (Dawn has no built-in testimonials section): centered eyebrow +
+  heading, then a row of repeatable quote + rating + name cards. Reused visually (same markup
+  conventions) by sections/product-reviews.liquid on the product page.
+{% endcomment %}
+
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="testimonials color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="testimonials__header">
+      {%- if section.settings.show_overall_rating -%}
+        <div
+          class="rating testimonials__overall-rating"
+          role="img"
+          aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: 5, rating_max: 5 }}"
+        >
+          <span aria-hidden="true" class="rating-star" style="--rating: 5; --rating-max: 5; --rating-decimal: 0;"></span>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.caption != blank -%}
+        <p class="caption-with-letter-spacing">{{ section.settings.caption | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="testimonials__heading inline-richtext">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <ul class="testimonials__grid list-unstyled" role="list">
+      {%- for block in section.blocks -%}
+        <li class="testimonials__item" {{ block.shopify_attributes }}>
+          <div
+            class="rating"
+            role="img"
+            aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: block.settings.rating, rating_max: 5 }}"
+          >
+            <span
+              aria-hidden="true"
+              class="rating-star"
+              style="--rating: {{ block.settings.rating }}; --rating-max: 5; --rating-decimal: 0;"
+            ></span>
+          </div>
+          {%- if block.settings.quote != blank -%}
+            <blockquote class="testimonials__quote">{{ block.settings.quote }}</blockquote>
+          {%- endif -%}
+          {%- if block.settings.name != blank -%}
+            <p class="testimonials__name">{{ block.settings.name | escape }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:celine.schema.testimonials.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_overall_rating",
+      "label": "t:celine.schema.testimonials.show_overall_rating.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "t:celine.schema.testimonials.caption.label",
+      "default": "t:celine.schema.testimonials.caption.default"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:celine.schema.testimonials.heading.label",
+      "default": "t:celine.schema.testimonials.heading.default"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "t:celine.schema.testimonials.block.name",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "t:celine.schema.testimonials.block.rating.label",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "t:celine.schema.testimonials.block.quote.label",
+          "default": "t:celine.schema.testimonials.block.quote.default"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "t:celine.schema.testimonials.block.name_label",
+          "default": "t:celine.schema.testimonials.block.name_default"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:celine.schema.testimonials.name",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}

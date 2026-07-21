@@ -1,0 +1,291 @@
+{% comment %}
+  Renders the "Choose your quantity & save" bundle tier selector.
+
+  This is the one genuinely custom (non-Dawn) piece of the product page. It lets a shopper pick a
+  quantity tier (1 / 2 / 3 / 4+ units) and, for tiers above 1, choose a Color + Size combination
+  per unit so a single "Buy 2" purchase can contain two different variants.
+
+  IMPORTANT — what is and isn't real here:
+  - The tier radios, per-unit variant selects, running totals and the final "add to cart" action
+    are fully functional: selecting a tier shows/hides real <select> elements (never fake divs),
+    and submitting genuinely POSTs one line item per unit to /cart/add.js with the shopper's
+    chosen variant ID(s) — so it truly adds N line items to the Shopify cart.
+  - The discounted per-item/total prices shown here are a client-side preview only. For the
+    customer to actually be charged the discounted amount at checkout, a store admin must create
+    a matching automatic discount (or Shopify Function) in Shopify Admin > Discounts with the
+    same quantity thresholds (2/3/4) and percentages (10%/15%/20%). See DEPLOYMENT.md.
+
+  Accepts:
+  - product: {Object} product object
+  - section_id: {String} id of the parent section, for unique element IDs
+  - product_form_id: {String} id of the main product form (unused for submission — this block
+    intentionally submits independently via /cart/add.js so it can add multiple line items)
+
+  Usage:
+  {% render 'bundle-quantity-selector', product: product, section_id: section.id %}
+{% endcomment %}
+{%- unless product == blank -%}
+  {{ 'component-bundle-quantity-selector.css' | asset_url | stylesheet_tag }}
+
+  {%- liquid
+    assign celine_bundle_max_units = 4
+    assign celine_compare_price = product.compare_at_price | default: product.price
+    assign celine_base_price = product.price
+  -%}
+
+  <bundle-quantity-selector
+    class="bundle-quantity-selector"
+    data-section-id="{{ section_id }}"
+    data-base-price="{{ celine_base_price }}"
+    data-cart-add-url="{{ routes.cart_add_url }}"
+  >
+    <script type="application/json" data-bundle-variants>
+      {{ product.variants | json }}
+    </script>
+
+    <h2 class="bundle-quantity-selector__heading h4">{{ 'celine.product.bundle_heading' | t }}</h2>
+
+    <fieldset class="bundle-quantity-selector__tiers">
+      <legend class="visually-hidden">{{ 'celine.product.bundle_heading' | t }}</legend>
+
+      {%- for tier in (1..4) -%}
+        {%- liquid
+          case tier
+            when 1
+              assign tier_percent = 0
+              assign tier_label = 'celine.product.bundle_tier_1' | t
+            when 2
+              assign tier_percent = 10
+              assign tier_label = 'celine.product.bundle_tier_2' | t
+            when 3
+              assign tier_percent = 15
+              assign tier_label = 'celine.product.bundle_tier_3' | t
+            when 4
+              assign tier_percent = 20
+              assign tier_label = 'celine.product.bundle_tier_4' | t
+          endcase
+
+          assign tier_discount_factor = 100 | minus: tier_percent
+          assign tier_item_price_cents = celine_base_price | times: tier_discount_factor | divided_by: 100
+          assign tier_total_cents = tier_item_price_cents | times: tier
+          assign tier_was_total_cents = celine_compare_price | times: tier
+          assign tier_item_price_money = tier_item_price_cents | money
+          assign tier_total_price_money = tier_total_cents | money
+          assign tier_was_price_money = tier_was_total_cents | money
+        -%}
+        <label
+          class="bundle-quantity-selector__tier"
+          for="BundleTier-{{ section_id }}-{{ tier }}"
+        >
+          <input
+            type="radio"
+            name="bundle-tier-{{ section_id }}"
+            id="BundleTier-{{ section_id }}-{{ tier }}"
+            value="{{ tier }}"
+            data-item-price="{{ tier_item_price_cents }}"
+            data-total-price="{{ tier_total_cents }}"
+            data-was-price="{{ tier_was_total_cents }}"
+            class="bundle-quantity-selector__radio"
+            {% if tier == 1 %}checked{% endif %}
+          >
+          <span class="bundle-quantity-selector__dot" aria-hidden="true"></span>
+          <span class="bundle-quantity-selector__tier-body">
+            <span class="bundle-quantity-selector__tier-label">{{ tier_label }}</span>
+            <span class="bundle-quantity-selector__tier-price">
+              <span class="bundle-quantity-selector__price-each">
+                {{- 'celine.product.bundle_price_each' | t: price: tier_item_price_money -}}
+              </span>
+              {%- if tier_percent > 0 -%}
+                <span class="bundle-quantity-selector__price-total">
+                  {{- 'celine.product.bundle_price_total' | t: price: tier_total_price_money -}}
+                  <s class="bundle-quantity-selector__price-was">{{ tier_was_price_money }}</s>
+                </span>
+              {%- endif -%}
+            </span>
+          </span>
+        </label>
+      {%- endfor -%}
+    </fieldset>
+
+    {%- for unit in (1..celine_bundle_max_units) -%}
+      <div
+        class="bundle-quantity-selector__unit"
+        data-bundle-unit="{{ unit }}"
+        {% if unit > 1 %}hidden{% endif %}
+      >
+        <p class="bundle-quantity-selector__unit-label">
+          {{ 'celine.product.bundle_unit_label' | t: index: unit }}
+        </p>
+        <div class="bundle-quantity-selector__unit-selects">
+          {%- for option in product.options_with_values -%}
+            <div class="bundle-quantity-selector__field">
+              <label
+                class="form__label visually-hidden"
+                for="BundleUnit-{{ section_id }}-{{ unit }}-Option-{{ forloop.index0 }}"
+              >
+                {{ option.name }} — {{ 'celine.product.bundle_unit_label' | t: index: unit }}
+              </label>
+              <div class="select">
+                <select
+                  id="BundleUnit-{{ section_id }}-{{ unit }}-Option-{{ forloop.index0 }}"
+                  class="select__select"
+                  data-bundle-option="{{ forloop.index0 }}"
+                >
+                  {%- for value in option.values -%}
+                    <option value="{{ value | escape }}">{{ value }}</option>
+                  {%- endfor -%}
+                </select>
+                <span class="svg-wrapper select__select-icon" aria-hidden="true">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+              </div>
+            </div>
+          {%- else -%}
+            <p class="bundle-quantity-selector__no-options">
+              {{ 'celine.product.bundle_single_variant' | t }}
+            </p>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+
+    <div class="bundle-quantity-selector__actions">
+      <button
+        type="button"
+        class="bundle-quantity-selector__add button button--full-width"
+        data-bundle-add-button
+      >
+        <span data-bundle-add-label>{{ 'celine.product.bundle_add_to_cart' | t }}</span>
+        {%- render 'loading-spinner' -%}
+      </button>
+      <p
+        class="bundle-quantity-selector__status visually-hidden"
+        role="status"
+        aria-live="polite"
+        data-bundle-status
+      ></p>
+    </div>
+  </bundle-quantity-selector>
+
+  {% javascript %}
+    class BundleQuantitySelector extends HTMLElement {
+      constructor() {
+        super();
+        this.variants = JSON.parse(this.querySelector('[data-bundle-variants]').textContent);
+        this.optionNames = this.variants.length ? this.variants[0].options.map((_, i) => i) : [];
+        this.radios = Array.from(this.querySelectorAll('.bundle-quantity-selector__radio'));
+        this.units = Array.from(this.querySelectorAll('[data-bundle-unit]'));
+        this.addButton = this.querySelector('[data-bundle-add-button]');
+        this.addLabel = this.querySelector('[data-bundle-add-label]');
+        this.status = this.querySelector('[data-bundle-status]');
+        this.cartAddUrl = this.dataset.cartAddUrl;
+
+        this.radios.forEach((radio) => radio.addEventListener('change', () => this.onTierChange()));
+        this.addButton.addEventListener('click', () => this.addBundleToCart());
+
+        this.onTierChange();
+      }
+
+      get selectedTier() {
+        const checked = this.radios.find((radio) => radio.checked);
+        return checked ? parseInt(checked.value, 10) : 1;
+      }
+
+      onTierChange() {
+        const tier = this.selectedTier;
+        this.units.forEach((unitEl) => {
+          const unitIndex = parseInt(unitEl.dataset.bundleUnit, 10);
+          unitEl.hidden = unitIndex > tier;
+        });
+      }
+
+      findVariantForUnit(unitEl) {
+        const selects = Array.from(unitEl.querySelectorAll('[data-bundle-option]'));
+        if (selects.length === 0) {
+          // Product has no options (single variant) - just use the first/only variant.
+          return this.variants[0];
+        }
+        const chosenValues = selects.map((select) => select.value);
+        return this.variants.find((variant) =>
+          chosenValues.every((value, index) => variant.options[index] === value)
+        );
+      }
+
+      async addBundleToCart() {
+        const tier = this.selectedTier;
+        const items = [];
+
+        for (const unitEl of this.units) {
+          const unitIndex = parseInt(unitEl.dataset.bundleUnit, 10);
+          if (unitIndex > tier) continue;
+          const variant = this.findVariantForUnit(unitEl);
+          if (!variant) {
+            this.setStatus(window.celineBundleStrings?.variantUnavailable || 'One of the selected combinations is unavailable.');
+            return;
+          }
+          items.push({ id: variant.id, quantity: 1 });
+        }
+
+        if (items.length === 0) return;
+
+        this.addButton.setAttribute('aria-busy', 'true');
+        this.addButton.disabled = true;
+
+        try {
+          const response = await fetch(this.cartAddUrl.replace('/cart/add', '/cart/add.js'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ items }),
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.description || errorData.message || 'Cart error');
+          }
+
+          document.dispatchEvent(new CustomEvent('cart:refresh'));
+          document.documentElement.dispatchEvent(
+            new CustomEvent('cart:build', { bubbles: true, detail: { source: 'bundle-quantity-selector' } })
+          );
+
+          // Dawn's cart drawer listens for a page-level cart update via its own fetch pattern on
+          // add; re-fetch the cart drawer/cart-icon-bubble sections so the count + drawer reflect
+          // the new items without a full page reload.
+          const cartIcon = document.querySelector('#cart-icon-bubble');
+          if (cartIcon) {
+            const sectionResponse = await fetch(`${window.location.pathname}?sections=cart-icon-bubble`);
+            const sectionData = await sectionResponse.json();
+            if (sectionData['cart-icon-bubble']) {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(sectionData['cart-icon-bubble'], 'text/html');
+              const newIcon = doc.querySelector('.shopify-section');
+              if (newIcon) cartIcon.parentElement.innerHTML = newIcon.innerHTML;
+            }
+          }
+
+          const cartDrawer = document.querySelector('cart-drawer');
+          if (cartDrawer && typeof cartDrawer.open === 'function') {
+            cartDrawer.open();
+          }
+
+          this.setStatus(window.celineBundleStrings?.added || 'Added to your cart.');
+        } catch (error) {
+          this.setStatus(error.message || 'Something went wrong adding this bundle to your cart.');
+        } finally {
+          this.addButton.removeAttribute('aria-busy');
+          this.addButton.disabled = false;
+        }
+      }
+
+      setStatus(message) {
+        this.status.textContent = message;
+        this.status.classList.remove('visually-hidden');
+        window.setTimeout(() => this.status.classList.add('visually-hidden'), 6000);
+      }
+    }
+
+    if (!customElements.get('bundle-quantity-selector')) {
+      customElements.define('bundle-quantity-selector', BundleQuantitySelector);
+    }
+  {% endjavascript %}
+{%- endunless -%}
