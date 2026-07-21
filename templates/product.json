@@ -69,7 +69,7 @@
         "color_scheme": "scheme-1",
         "media_position": "left",
         "gallery_layout": "stacked",
-        "media_size": "medium",
+        "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "image_zoom": "lightbox",

@@ -152,13 +152,35 @@
       white-space: normal;
     }
   }
-  /* Celine Beaumont: remove the header utility row (Contact / Track your order)
-     and the product "Shipping calculated at checkout" caption, to match the design. */
+  /* Celine Beaumont: product-page tweaks to match the design ---------------
+     1. Hide the header utility row (Contact / Track your order) everywhere.
+     2. Hide the "Shipping calculated at checkout" caption under the price.
+     3. Keep the main product photo compact so it never dominates the page. */
   .header__utility-bar {
     display: none !important;
   }
   .product__tax {
     display: none !important;
+  }
+  /* Main image: gentler 4:5 portrait instead of the taller 3:4. */
+  .product--stacked .product__media-list .product__media-item:nth-child(1) .media {
+    padding-bottom: 125% !important;
+  }
+  @media screen and (min-width: 990px) {
+    /* Cap the media column width so the photo stays a sensible size and the
+       info / Add-to-cart column on the right sits higher, like the design. */
+    .product__media-wrapper {
+      max-width: 46rem;
+    }
+  }
+  @media screen and (max-width: 989px) {
+    /* On narrow screens the media stacks full-width — keep it from filling
+       the whole screen. */
+    .product__media-wrapper {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 {%- endstyle -%}
 
