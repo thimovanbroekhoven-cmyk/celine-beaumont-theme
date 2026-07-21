@@ -57,13 +57,12 @@
         "title",
         "rating",
         "price",
-        "description",
         "variant_picker",
         "size_guide",
-        "bundle_quantity_selector",
         "quantity_selector",
         "buy_buttons",
         "trust_strip",
+        "description",
         "share"
       ],
       "settings": {
