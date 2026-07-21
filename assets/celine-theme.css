@@ -592,3 +592,15 @@ sticky-header .header-wrapper {
   min-width: 4rem;
   min-height: 4rem;
 }
+
+/* -----------------------------------------------------------------------
+   Celine Beaumont: header logo
+   The brand wordmark (assets/logo.jpg) is black text on a solid white
+   background. mix-blend-mode: multiply drops the white so it sits flush on
+   the warm-white header (matching the design blueprint), instead of showing
+   as a white box. Replace with a transparent PNG/SVG in Theme settings >
+   Logo for the crispest result.
+   ----------------------------------------------------------------------- */
+.header__heading-logo {
+  mix-blend-mode: multiply;
+}
