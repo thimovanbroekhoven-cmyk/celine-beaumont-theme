@@ -35,6 +35,11 @@ if (!customElements.get('media-gallery')) {
         if (!activeMedia) {
           return;
         }
+        // Remember whether this media was already the active one. If it was, the
+        // featured image did not change (e.g. the shopper only picked a different
+        // size), so we must not scroll the page up to the image — only a real
+        // image change (picking another colour) should scroll to it.
+        const wasAlreadyActive = activeMedia.classList.contains('is-active');
         this.elements.viewer.querySelectorAll('[data-media-id]').forEach((element) => {
           element.classList.remove('is-active');
         });
@@ -56,6 +61,9 @@ if (!customElements.get('media-gallery')) {
           if (!this.mql.matches || this.elements.thumbnails) {
             activeMedia.parentElement.scrollTo({ left: activeMedia.offsetLeft });
           }
+          // Only picking a different image (colour) scrolls to it; picking a size
+          // keeps the same image, so leave the page where it is.
+          if (wasAlreadyActive) return;
           const activeMediaRect = activeMedia.getBoundingClientRect();
           // Don't scroll if the image is already in view
           if (activeMediaRect.top > -0.5) return;
